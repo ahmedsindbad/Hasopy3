@@ -27,17 +27,20 @@ class TestPageView(TemplateView):
 def varse(request):
     form = VerseForm(request.POST or None)
     value = str()
-    if form.is_valid():
-        for key, value in form.cleaned_data.items():
-            print(key, value)
-    conn = sqlite3.connect(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+"/"+"db.sqlite3"))
-    c = conn.cursor()
-    c.execute("select text from Search_verse where text like '%"+value+"%';", )
-    result = list(c)
-    conn.commit()
-    for w in result:
-        print(w[0])
-    conn.close()
+    try:
+        if form.is_valid():
+            for key, value in form.cleaned_data.items():
+                print(key, value)
+        conn = sqlite3.connect(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+"/"+"db.sqlite3"))
+        c = conn.cursor()
+        c.execute("select text from Search_verse where text like '%"+value+"%';", )
+        result = list(c)
+        conn.commit()
+        for w in result:
+            print(w[0])
+        conn.close()
+    except ValueError:
+        print("Oops!  That was no valid number.  Try again...")
     context = {
         "form": form,
         "result": result,
