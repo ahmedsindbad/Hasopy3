@@ -1,0 +1,129 @@
+{% extends "base.htm" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="content_div">
+		<div class="content_spc">
+		</div>
+		<div class="content_srch">
+			<!--<form method="get">-->
+				<table class="content_srch">
+					<tr>
+						<td class="content_logo">
+						<img alt="" height="93" src="{% static 'images/logo.png' %}" width="252" /></td>
+					</tr>
+					<tr>
+						<td class="search_box">
+						<table class="search_box">
+							<tr>
+								<td class="search_box_l">
+								<a href="/search" title="إبدأ البحث">
+								<img alt="" height="47" src="{% static 'images/icons/srch_clk.png' %}" style="margin-left: 11px;" width="30" /></a></td>
+								<td class="search_box_m">
+									<!--<input class="search_box_txt" dir="rtl" name="SearchBox" tabindex="0" type="text" value="نعمة من كريم" />-->
+									<form method="post" action="" class="search_box_txt" dir="rtl" tabindex="0">{% csrf_token %}
+										{{form.as_ul}}
+										<input type="submit" value="إبدأ البحث" dir="rtl">
+										{% for value in result %}
+											<li>{{value}}</li>
+										{% endfor %}<br/><br/><br/>
+
+									</form>
+								</td>
+								<td class="search_box_r">
+								<p class="search_box_p">ابحث عن</p>
+								</td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+					<tr>
+						<td class="search_det_box">
+						<div id="div_name1" class="search_det1">
+							<table class="search_det1">
+								<tr>
+									<td class="search_det1_clk">
+									<a href="" onclick="document.getElementById('div_name2').style.display='';document.getElementById('div_name1').style.display='none';return false;">
+									<img alt="" height="26" src="{% static 'images/icons/srch_det1_clk.png' %}" style="margin-top: 6px" width="86" /></a></td>
+									<td class="search_det1_disc">للحصول على نتائج أكثر دقة يفضل استخدام البحث المتقدم.</td>
+								</tr>
+							</table>
+						</div>
+						<div id="div_name2" class="search_det2" style="display: none;">
+							<center>
+							<table class="search_det2_tbl">
+								<tr>
+									<td class="search_det2_boxs" style="height: 17px">
+									</td>
+									<td class="search_det2_labels" style="height: 17px">
+									</td>
+								</tr>
+								<tr>
+									<td class="search_det2_boxs">
+									<select class="search_det_box_txt" dir="rtl" name="Select1">
+									<option></option>
+									</select> </td>
+									<td class="search_det2_labels"></td>
+								</tr>
+								<tr>
+									<td class="search_det2_boxs">
+									<input class="search_det_box_txt" dir="rtl" name="SearchBox0" type="text" /></td>
+									<td class="search_det2_labels"></td>
+								</tr>
+								<tr>
+									<td class="search_det2_boxs">
+									<input class="search_det_box_txt" dir="rtl" name="SearchBox1" type="text" /></td>
+									<td class="search_det2_labels"></td>
+								</tr>
+								<tr>
+									<td class="search_det2_boxs">
+									<select class="search_det_box_txt" dir="rtl" name="Select2">
+									<option></option>
+									</select></td>
+									<td class="search_det2_labels"></td>
+								</tr>
+								<tr>
+									<td class="search_det2_boxs">
+									<select class="search_det_box_txt" dir="rtl" name="Select3">
+									<option></option>
+									</select></td>
+									<td class="search_det2_labels"></td>
+								</tr>
+								<tr>
+									<td class="search_det2_boxs">
+									<select class="search_det_box_txt" dir="rtl" name="Select4">
+									<option></option>
+									</select></td>
+									<td class="search_det2_labels"></td>
+								</tr>
+							</table>
+							<a href="" onclick="document.getElementById('div_name2').style.display='none';document.getElementById('div_name1').style.display='';return false;" title="إغلاق البحث المتقدم">
+							<img alt="" src="{% static 'images/spc.png' %}" style="height: 25px; width: 125px; float: right" /></a></center>
+						</div>
+						</td>
+					</tr>
+				</table>
+			<!--</form>-->
+		</div>
+		<div class="spon_tit">
+			الرعاة</div>
+		<div class="content_spon">
+			<center>
+			<table class="content_spon_tbl">
+				<tr>
+					<td class="spon_tbl_sml">
+					<img alt="" height="36" src="{% static 'images/spon/sml.png' %}" width="43" /></td>
+					<td class="spon_tbl_med">
+					<img alt="" height="31" src="{% static 'images/spon/med.png' %}" width="60" /></td>
+					<td class="spon_tbl_lar">
+					<img alt="" height="62" src="{% static 'images/spon/large.png' %}" width="36" /></td>
+					<td class="spon_tbl_med">
+					<img alt="" height="41" src="{% static 'images/spon/med2.png' %}" width="44" /></td>
+					<td class="spon_tbl_sml">
+					<img alt="" height="40" src="{% static 'images/spon/sml2.png' %}" width="35" /></td>
+				</tr>
+			</table>
+			</center></div>
+	</div>
+
+{% endblock %}

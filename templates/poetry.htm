@@ -1,0 +1,198 @@
+
+
+{% extends "base.htm" %}
+{% load staticfiles %}
+{% block content %}
+								<table class="int_hdr_tit2">
+									<tr><br/><br/><br/><br/>
+										<td class="int_hdr_title">قصيدة (الوفاء)</td>
+									</tr>
+									<tr>
+										<td class="int_hdr_stitle">للشاعر البحتري</td>
+									</tr>
+								</table>
+								</td>
+								<td class="int_hdr_logo"><a href="/">
+								<img alt="" src="{% static 'images/slogo.png' %}" /></a></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="int_content_frm">
+				<table class="int_content_frm">
+					<tr>
+						<td class="int_cont_spc_brdr">
+						<div style="width: 100%; height: auto; z-index: 40">
+							<table class="artic_det_tbl">
+								<tr>
+									<td class="artic_det_spc"></td>
+								</tr>
+								<tr>
+									<td class="artic_det_continer">
+									<div id="newpost" class="artic_det_div_tbl">
+										<table class="artic_det_div_tbl">
+											<tr>
+												<td class="artic_det_photo">
+												<img alt="" height="125" src="{% static 'images/photos/photo.jpg' %}" width="127" /></td>
+											</tr>
+											<tr>
+												<td class="artic_det_txt">العصر 
+												العباسي</td>
+											</tr>
+											<tr>
+												<td class="artic_det_txt">الوصف</td>
+											</tr>
+											<tr>
+												<td class="artic_det_txt">الخفيف</td>
+											</tr>
+											<tr>
+												<td class="artic_det_txt" style="height: auto;">
+												الميم (م)</td>
+											</tr>
+										</table>
+									</div>
+									</td>
+								</tr>
+								<tr>
+									<td class="artic_det_clk">
+									<a onclick="toggle();">
+									<img alt="" class="artic_det_clk" src="{% static 'images/spc.png' %}" style="cursor: pointer" /></a></td>
+								</tr>
+							</table>
+						</div>
+						<div class="content_spon2">
+								<center style="height: auto;">
+								<table class="content_spon_tbl2">
+									<tr>
+										<td class="spon_tbl_spc2"></td>
+									</tr>
+									<tr>
+										<td class="spon_tbl_sml2">
+										<img alt="" height="36" src="{% static 'images/spon/sml.png' %}" width="43" /></td>
+									</tr>
+									<tr>
+										<td class="spon_tbl_med2">
+										<img alt="" height="31" src="{% static 'images/spon/med.png' %}" width="60" /></td>
+									</tr>
+									<tr>
+										<td class="spon_tbl_lar2">
+										<img alt="" height="62" src="{% static 'images/spon/large.png' %}" width="36" /></td>
+									</tr>
+									<tr>
+										<td class="spon_tbl_med2">
+										<img alt="" height="41" src="{% static 'images/spon/med2.png' %}" width="44" /></td>
+									</tr>
+									<tr>
+										<td class="spon_tbl_sml2">
+										<img alt="" height="40" src="{% static 'images/spon/sml2.png' %}" width="35" /></td>
+									</tr>
+								</table>
+								</center></div>
+						</td>
+						<td class="int_cont_pg_brdr">
+						<table class="int_cont_pg_brdr" style="background-image: url('images/brdr/int_hdr.png');">
+							<tr>
+								<td class="search_box" style="width: 100%">
+								<table class="search_box" style="width: 100%">
+									<tr>
+										<td class="search_box_l">
+										<a href="/" title="إبدأ البحث">
+										<img alt="" height="47" src="{% static 'images/icons/srch_clk.png' %}" style="margin-left: 11px;" width="30" /></a></td>
+										<td class="search_box_m">
+										<input class="search_box_txt" dir="rtl" name="SearchBox" tabindex="0" type="text" value="نعمة من كريم" />
+										</td>
+										<td class="search_box_r" style="width: 45px; background-image: url('images/search/srch_r2.png');">
+										</td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+							<tr>
+								<td class="int_cont_page">
+								<table class="int_clks_bar">
+									<tr>
+										<td class="poetry_txt">قَد فقَدْنا الوَفاءَ 
+										فَقدَ الحَميمِ،</td>
+										<td class="poetry_polet"></td>
+										<td class="poetry_txt">وَبَكَينَا العُلَى 
+										بُكَاءَ الرّسُومِ</td>
+									</tr>
+									<tr>
+										<td class="poetry_txt">لا أُمِلُّ الزّمَانَ 
+										ذَمّاً، وَحَسْبي</td>
+										<td class="poetry_polet"></td>
+										<td class="poetry_txt">شُغُلاً أنْ ذَمَمْتُ 
+										كُلّ ذَميمِ</td>
+									</tr>
+									<tr>
+										<td class="poetry_txt">أتَظُنُّ الغِنَى 
+										ثَوَاباً لِذِي الهِمّةِ</td>
+										<td class="poetry_polet"></td>
+										<td class="poetry_txt">مِنْ وَقْفَةٍ بِبَابِ 
+										لَئِيمِ</td>
+									</tr>
+									<tr>
+										<td class="poetry_txt">وَأرَى عِنْدَ خَجْلَةِ 
+										الرّدّ منّي</td>
+										<td class="poetry_polet"></td>
+										<td class="poetry_txt">خَطَراً في السّؤالِ، 
+										جِدَّ عَظيمِ</td>
+									</tr>
+									<tr>
+										<td class="poetry_txt">وَلَوَجْهُ البَخيلِ 
+										أحْسَنُ في</td>
+										<td class="poetry_polet"></td>
+										<td class="poetry_txt">بَعْضِ الأحَايينِ 
+										مِنْ قَفَا المَحرُومِ</td>
+									</tr>
+									<tr>
+										<td class="poetry_txt">وَكَرِيمٌ عَدا، 
+										فأعْلَقَ كَفّي،</td>
+										<td class="poetry_polet"></td>
+										<td class="poetry_txt">مُسْتَميحاً في 
+										<span class="poetry_txt_find">نِعْمَةٍ 
+										مِن كَرِيمِ</span></td>
+									</tr>
+									<tr>
+										<td class="poetry_txt">حَازَ حَمدي، وَللرّياحِ 
+										اللّوَاتي</td>
+										<td class="poetry_polet"></td>
+										<td class="poetry_txt">تَجْلُبُ الغَيثَ، 
+										مثلُ حَمدِ الغيومِ</td>
+									</tr>
+									<tr>
+										<td class="poetry_txt">عَوْدَةٌ بَعدَ بَدْأةٍ 
+										مِنكَ كانَتْ</td>
+										<td class="poetry_polet"></td>
+										<td class="poetry_txt">أمسِ، يا أحمَدُ 
+										بنُ عَبدِ الرّحيمِ</td>
+									</tr>
+									<tr>
+										<td class="poetry_txt">مَا تَأنّيكَ بالظّنِينِ 
+										وَلا وَجْهُكَ</td>
+										<td class="poetry_polet"></td>
+										<td class="poetry_txt">في وَجهِ حاجتي بشَتيمِ</td>
+									</tr>
+								</table>
+								<table class="int_clks_bar">
+									<tr>
+										<td class="int_clks_bar" style="padding-bottom: 10px; padding-top: 10px;">
+										<a href="index.htm" title="الصفحة السابقة">
+										<img alt="" height="29" src="{% static 'images/icons/back_clk.png' %}" width="31" /></a></td>
+									</tr>
+								</table>
+								</td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+{% endblock %}

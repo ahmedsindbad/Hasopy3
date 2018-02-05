@@ -1,0 +1,63 @@
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>حاسوبوية - محرك بحث ذكي للشعر العربي</title>
+<link href="{% static 'images/icons/favicon.ico' %}" rel="shortcut icon" type="image/x-icon" />
+<link href="{% static 'css/haseb_default.css' %}" rel="stylesheet" type="text/css" />
+<script src="{% static 'js/haseb_default.js' %}" type="text/javascript"></script>
+</head>
+
+<body class="home_body">
+<center>
+<div class="home_div">
+	<div class="header_div" style="background-position: right top;">
+		<table class="header_tbl">
+			<tr>
+				<td class="header_tbl_l">
+				<table class="header_icons">
+					<tr>
+						<td class="header_icons_td">
+						<a href="#" target="_blank" title="Bookmark">
+						<img alt="" src="{% static 'images/icons/hom_hdr_fav.png' %}" /></a></td>
+						<td class="header_icons_td">
+						<a href="https://www.facebook.com/" target="_blank" title="Facebook">
+						<img alt="" src="{% static 'images/icons/hom_hdr_fb.png' %}" /></a></td>
+						<td class="header_icons_td">
+						<a href="https://www.twitter.com/" target="_blank" title="Twitter">
+						<img alt="" src="{% static 'images/icons/hom_hdr_tw.png' %}" /></a></td>
+					</tr>
+				</table>
+				</td>
+				<td class="header_tbl_r"><a href="/">الرئيسية</a> | <a href="/about">عن حاسوبويه</a> |
+				<a href="/about">حول محرك البحث</a> | <a href="/help">المساعدة</a>
+				| <a href="/contactus">اتصل بنا</a></td>
+			</tr>
+		</table>
+	</div>
+
+	{% block content %}{% endblock %}
+		<div class="footer_div">
+		<table class="header_tbl">
+			<tr>
+				<td style="height: 50px;"></td>
+				<td style="height: 50px;"></td>
+			</tr>
+			<tr>
+				<td class="header_tbl_l">© <strong>HASOUBAWAYH</strong> 2013</td>
+				<td class="header_tbl_r">
+									<a href="/">الرئيسية</a> |
+									<a href="/about">عن حاسوبويه</a> |
+									<a href="/about">حول محرك البحث</a> |
+									<a href="/help">المساعدة</a> |
+									<a href="/contactus">اتصل بنا</a></td>
+			</tr>
+		</table>
+	</div>
+</div>
+</center>
+
+</body>
+
+</html>
