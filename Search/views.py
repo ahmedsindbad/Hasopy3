@@ -23,6 +23,25 @@ class SearchPageView(TemplateView):
 class TestPageView(TemplateView):
     template_name = 'testform.htm'
 
+def tosearchpage(request):
+    searchWord = request.POST.get('text','')
+    try:
+        conn = sqlite3.connect(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))+"/"+"db.sqlite3"))
+        c = conn.cursor()
+        c.execute("select text from Search_verse where text like '%"+searchWord+"%';", )
+        result = list(c)
+        conn.commit()
+        for w in result:
+            print(w[0])
+        conn.close()
+    except ValueError:
+        print("Oops!  That was no valid Data.  Try again...")
+    context = {
+        "result": result,
+    }
+    return render(request, 'Search.htm', context)
+
+
 
 def varse(request):
     form = VerseForm(request.POST or None)

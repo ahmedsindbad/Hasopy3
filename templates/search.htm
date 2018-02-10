@@ -2,6 +2,8 @@
 {% load staticfiles %}
 {% block content %}
 
+
+
 						<table class="int_cont_hdr_td">
 							<tr><br/><br/><br/><br/>
 								<td class="int_hdr_bok">
@@ -93,11 +95,9 @@
 												<td class="srch2_brdr2">
 												<table class="srch2_brdr2">
 													<tr>
-														<td class="srch2_txt">وَكَرِيمٌ 
-														عَدا، فأعْلَقَ كَفّي، ....... 
-														مُسْتَميحاً في
-														<span class="srch2_txt_srch">
-														نِعْمَةٍ مِن كَرِيمِ</span></td>
+														{% for value in result %}
+							{{value}}<br/>
+						{% endfor %}
 													</tr>
 													<tr>
 														<td class="srch2_txt_brdr">
@@ -131,8 +131,8 @@
 												<td class="srch2_brdr2">
 												<table class="srch2_brdr2">
 													<tr>
-														<td class="srch2_txt">وَكَرِيمٌ 
-														عَدا، فأعْلَقَ كَفّي، ....... 
+														<td class="srch2_txt">وَكَرِيمٌ
+														عَدا، فأعْلَقَ كَفّي، .......
 														مُسْتَميحاً في
 														<span class="srch2_txt_srch">
 														نِعْمَةٍ مِن كَرِيمِ</span></td>

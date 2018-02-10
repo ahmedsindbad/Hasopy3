@@ -6,11 +6,7 @@
 		<div class="content_spc">
 		</div>
 		<div class="content_srch">
-						<span style="font-size:22px;">
-						{% for value in result %}
-							{{value}}<br/>
-						{% endfor %}
-						</span>
+
 			<!--<form method="get">-->
 				<table class="content_srch">
 					<tr>
@@ -27,9 +23,9 @@
 								<img alt="" height="47" src="{% static 'images/icons/srch_clk.png' %}" style="margin-left: 11px;" width="30" /></a></td>
 								<td class="search_box_m">
 									<!--<input class="search_box_txt" dir="rtl" name="SearchBox" tabindex="0" type="text" value="نعمة من كريم" />-->
-									<form method="post" action="" class="search_box_txt" dir="rtl" tabindex="0">{% csrf_token %}
+									<form method="post" action=""  class="search_box_txt" dir="rtl" tabindex="0">{% csrf_token %}
 										{{form.as_ul}}
-										<input type="submit" value="إبدأ البحث" dir="rtl">
+										<input type="submit" value="إبدأ البحث" dir="rtl" formaction="{% url 'search' %}">
 										<br/><br/><br/>
 									</form>
 								</td>
