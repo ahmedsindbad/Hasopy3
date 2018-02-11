@@ -478,6 +478,7 @@ div {
 	background-repeat: repeat-x;
 	text-align: center;
 	vertical-align: top;
+	direction: rtl;
 }
 .search_box_txt {
 	margin-top: 19px;

@@ -36,7 +36,7 @@ def varse(request):
     return render(request, 'index.htm', context)
 
 def tosearchpage(request):
-    searchWord = request.POST.get('text', '')
+    searchWord = request.POST.get('text', '').replace("'",'')
     request.session['Sword'] = searchWord
     try:
         conn = sqlite3.connect(
@@ -87,7 +87,7 @@ def getalldata(p_id = '1'):
             os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))
         c = conn.cursor()
         c.execute(
-            "SELECT Search_poem.id, Search_poem.title, Search_poet.name, Search_poet.picture ,Search_purpose.purpose, Search_sea.sea , Search_mydate.myDate FROM Search_poem LEFT OUTER JOIN Search_poet ON (Search_poet.id = Search_poem.poet_id) LEFT OUTER JOIN Search_purpose ON (Search_purpose.id = Search_poem.purpose_id) LEFT OUTER JOIN Search_sea ON (Search_sea.id = Search_poem.sea_id) LEFT OUTER JOIN Search_mydate ON (Search_mydate.id = Search_poem.myDate_id) WHERE (Search_poem.id = " + p_id + ")", )
+            "SELECT Search_poem.id, Search_poem.title, Search_poet.name, Search_poet.picture ,Search_purpose.purpose, Search_sea.sea , Search_mydate.myDate, Search_publisher.name FROM Search_poem LEFT OUTER JOIN Search_poet ON (Search_poet.id = Search_poem.poet_id) LEFT OUTER JOIN Search_purpose ON (Search_purpose.id = Search_poem.purpose_id) LEFT OUTER JOIN Search_sea ON (Search_sea.id = Search_poem.sea_id) LEFT OUTER JOIN Search_mydate ON (Search_mydate.id = Search_poem.myDate_id) LEFT OUTER JOIN Search_publisher ON (Search_publisher.id = Search_poem.publisher_id) WHERE (Search_poem.id = " + p_id + ")", )
         result = list(c)
         conn.commit()
         # print(result)
