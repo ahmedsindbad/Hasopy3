@@ -37,6 +37,7 @@ def varse(request):
 
 def tosearchpage(request):
     searchWord = request.POST.get('text', '')
+    request.session['Sword'] = searchWord
     try:
         conn = sqlite3.connect(
             os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))
@@ -58,21 +59,25 @@ def tosearchpage(request):
     return render(request, 'Search.htm', context)
 
 def poetryshow(request,poet_id):
+    searchWord = request.session.get('Sword')
     try:
         conn = sqlite3.connect(
             os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))
         c = conn.cursor()
         c.execute(
-            "select text from Search_verse where  poem_id =" + poet_id + ";", )
+            "select text from Search_verse where poem_id =" + poet_id + ";", )
         result = list(c)
         conn.commit()
         # for w in result:
         #     print(w[0])
         conn.close()
+        fresult = getalldata(poet_id)
     except ValueError:
         print("Oops!  That was no valid Data.  Try again...")
     context = {
         'result': result,
+        'fresult': fresult,
+        'searchWord': searchWord,
     }
     return render(request, 'poetry.htm', context)
 
@@ -82,9 +87,7 @@ def getalldata(p_id = '1'):
             os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))
         c = conn.cursor()
         c.execute(
-            "SELECT Search_poem.id, Search_poem.title, Search_poet.name, Search_poet.picture "
-            "FROM Search_poem LEFT OUTER JOIN Search_poet ON (Search_poet.id = Search_poem.poet_id) "
-            "WHERE (Search_poem.id = " + p_id + ");", )
+            "SELECT Search_poem.id, Search_poem.title, Search_poet.name, Search_poet.picture ,Search_purpose.purpose, Search_sea.sea , Search_mydate.myDate FROM Search_poem LEFT OUTER JOIN Search_poet ON (Search_poet.id = Search_poem.poet_id) LEFT OUTER JOIN Search_purpose ON (Search_purpose.id = Search_poem.purpose_id) LEFT OUTER JOIN Search_sea ON (Search_sea.id = Search_poem.sea_id) LEFT OUTER JOIN Search_mydate ON (Search_mydate.id = Search_poem.myDate_id) WHERE (Search_poem.id = " + p_id + ")", )
         result = list(c)
         conn.commit()
         # print(result)
