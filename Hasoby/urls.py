@@ -24,6 +24,8 @@ urlpatterns = [
     url(r'^about/$', views.AboutPageView.as_view(), name='about'),
     url(r'^search/$', views.tosearchpage, name='search'),
     # url(r'^test/$', views.varse, name='test'),
-    url(r'^search/poetry/$', views.SearchPageView.PoertyPageView.as_view(), name='poetry'),
+    # url(r'^search/poetry/$', views.SearchPageView.PoertyPageView.as_view(), name='poetry'),
+    # url(r'^search/poetry/$', views.poetryshow, name='poetry'),
+    url(r'^search/poetry/(?P<poet_id>\d+)/$', views.poetryshow, name='poetry'),
     path('admin/', admin.site.urls),
 ]

@@ -275,9 +275,9 @@ div {
 	text-align: left;
 }
 .int_content_frm {
-	width: 100%;
+	width: 50%;
 	height: auto;
-	text-align: right;
+	text-align: center;
 	vertical-align: top;
 }
 .int_cont_pg_brdr {

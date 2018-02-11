@@ -17,22 +17,22 @@
 					<tr>
 						<td class="search_box">
 						<table class="search_box">
+							<form id = "form-search" method="post" action="{% url 'search' %}"  class="search_box_txt" dir="rtl" tabindex="0">{% csrf_token %}
 							<tr>
 								<td class="search_box_l">
-								<a href="/search" title="إبدأ البحث">
+								<a href="#" title="إبدأ البحث" onclick="document.forms['form-search'].submit();">
 								<img alt="" height="47" src="{% static 'images/icons/srch_clk.png' %}" style="margin-left: 11px;" width="30" /></a></td>
 								<td class="search_box_m">
 									<!--<input class="search_box_txt" dir="rtl" name="SearchBox" tabindex="0" type="text" value="نعمة من كريم" />-->
-									<form method="post" action=""  class="search_box_txt" dir="rtl" tabindex="0">{% csrf_token %}
-										{{form.as_ul}}
-										<input type="submit" value="إبدأ البحث" dir="rtl" formaction="{% url 'search' %}">
-										<br/><br/><br/>
-									</form>
+									<br/>
+										{{form.as_p}}
+										<!--<input type="submit" value="إبدأ البحث" dir="rtl" formaction="{% url 'search' %}">-->
 								</td>
 								<td class="search_box_r">
 								<p class="search_box_p">ابحث عن</p>
 								</td>
 							</tr>
+							</form>
 						</table>
 						</td>
 					</tr>
