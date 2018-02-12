@@ -17,15 +17,14 @@ from django.conf.urls import url , include
 from django.contrib import admin
 from django.urls import path
 from Search import views
+from polls import views as views1
 
 urlpatterns = [
     url(r'^$', views.varse, name='index'),
-    #url(r'^$', views.HomeView.as_view(), name='index'),
     url(r'^about/$', views.AboutPageView.as_view(), name='about'),
     url(r'^search/$', views.tosearchpage, name='search'),
-    # url(r'^test/$', views.varse, name='test'),
-    # url(r'^search/poetry/$', views.SearchPageView.PoertyPageView.as_view(), name='poetry'),
-    # url(r'^search/poetry/$', views.poetryshow, name='poetry'),
     url(r'^search/poetry/(?P<poet_id>\d+)/$', views.poetryshow, name='poetry'),
+    # url(r'^polls/$', views1.index, name='index'),
+    path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
 ]

@@ -28,6 +28,7 @@ class SearchPageView(TemplateView):
 class TestPageView(TemplateView):
     template_name = 'testform.htm'
 
+
 def varse(request):
     form = VerseForm(request.POST or None)
     context = {
@@ -35,8 +36,10 @@ def varse(request):
     }
     return render(request, 'index.htm', context)
 
+
 def tosearchpage(request):
-    searchWord = request.POST.get('text', '').replace("'",'')
+    form = VerseForm(request.POST or None)
+    searchWord = request.POST.get('text', '').replace("'", '')
     request.session['Sword'] = searchWord
     try:
         conn = sqlite3.connect(
@@ -46,7 +49,7 @@ def tosearchpage(request):
             "SELECT * FROM Search_poem "
             "LEFT OUTER JOIN Search_verse ON (Search_poem.id = Search_verse.poem_id) "
             "LEFT OUTER JOIN Search_poet ON (Search_poem.poet_id = Search_poet.id) "
-            "WHERE (Search_verse.text like '%" + searchWord + "%') group by text", )
+            "WHERE (Search_verse.text like '%" + searchWord + "%') ", )
         result = list(c)
         conn.commit()
         conn.close()
@@ -55,10 +58,13 @@ def tosearchpage(request):
     context = {
         'searchWord': searchWord,
         'result': result,
+        'form': form,
+
     }
     return render(request, 'Search.htm', context)
 
-def poetryshow(request,poet_id):
+
+def poetryshow(request, poet_id):
     searchWord = request.session.get('Sword')
     try:
         conn = sqlite3.connect(
@@ -81,7 +87,8 @@ def poetryshow(request,poet_id):
     }
     return render(request, 'poetry.htm', context)
 
-def getalldata(p_id = '1'):
+
+def getalldata(p_id='1'):
     try:
         conn = sqlite3.connect(
             os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))

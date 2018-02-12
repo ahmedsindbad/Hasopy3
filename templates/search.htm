@@ -67,16 +67,22 @@
 							<tr>
 								<td class="search_box" style="width: 100%">
 								<table class="search_box" style="width: 100%">
-									<tr>
-										<td class="search_box_l">
-										<a href="index.htm" title="إبدأ البحث">
-										<img alt="" height="47" src="{% static 'images/icons/srch_clk.png' %}" style="margin-left: 11px;" width="30" /></a></td>
-										<td class="search_box_m">
-										<input class="search_box_txt" dir="rtl" name="SearchBox" tabindex="0" type="text" value="{{searchWord}}" />
-										</td>
-										<td class="search_box_r" style="width: 45px; background-image: url('images/search/srch_r2.png');">
-										</td>
-									</tr>
+							<form id = "form-search" method="post" action="{% url 'search' %}"  class="search_box_txt" dir="rtl" tabindex="0">{% csrf_token %}
+							<tr>
+								<td class="search_box_l">
+								<a href="#" title="إبدأ البحث" onclick="document.forms['form-search'].submit();">
+								<img alt="" height="47" src="{% static 'images/icons/srch_clk.png' %}" style="margin-left: 11px;" width="30" /></a></td>
+								<td class="search_box_m">
+									<!--<input class="search_box_txt" dir="rtl" name="SearchBox" tabindex="0" type="text" value="نعمة من كريم" />-->
+									<br/>
+										{{form.as_p}}
+										<!--<input type="submit" value="إبدأ البحث" dir="rtl" formaction="{% url 'search' %}">-->
+								</td>
+								<td class="search_box_r">
+								<p class="search_box_p">ابحث عن</p>
+								</td>
+							</tr>
+							</form>
 								</table>
 								</td>
 							</tr>
