@@ -31,11 +31,31 @@ class TestPageView(TemplateView):
 
 def varse(request):
     form = VerseForm(request.POST or None)
+    poet=combo_fil('Search_poet')
+    mydate=combo_fil('Search_mydate')
+    purpose=combo_fil('Search_purpose')
+    publisher=combo_fil('Search_publisher')
+    sea=combo_fil('Search_sea')
+    poem=combo_fil('Search_poem')
     context = {
-        "form": form,
+        "form": form,'poet':poet,'mydate':mydate,'poem':poem,'purpose':purpose,'sea':sea, 'publisher': publisher
     }
     return render(request, 'index.htm', context)
 
+def combo_fil(colum):
+    try:
+        conn = sqlite3.connect(
+            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))
+        c = conn.cursor()
+        c.execute("SELECT * FROM "+colum ,)
+        result = list(c)
+        #poet.execute("SELECT * FROM Search_mydate ",)
+        #result = list(poet)
+        conn.commit()
+        conn.close()
+    except ValueError:
+        print("Oops!  That was no valid Data.  Try again...")
+    return result
 
 def tosearchpage(request):
     form = VerseForm(request.POST or None)

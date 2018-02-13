@@ -60,38 +60,54 @@
 								<tr>
 									<td class="search_det2_boxs">
 									<select class="search_det_box_txt" dir="rtl" name="Select1">
-									<option></option>
+									{% for value in mydate %}
+									<option>{{value.1}}</option>
+									{% endfor %}
 									</select> </td>
 									<td class="search_det2_labels"></td>
 								</tr>
 								<tr>
 									<td class="search_det2_boxs">
-									<input class="search_det_box_txt" dir="rtl" name="SearchBox0" type="text" /></td>
-									<td class="search_det2_labels"></td>
-								</tr>
-								<tr>
-									<td class="search_det2_boxs">
-									<input class="search_det_box_txt" dir="rtl" name="SearchBox1" type="text" /></td>
-									<td class="search_det2_labels"></td>
-								</tr>
-								<tr>
-									<td class="search_det2_boxs">
 									<select class="search_det_box_txt" dir="rtl" name="Select2">
-									<option></option>
-									</select></td>
+									{% for value in poet %}
+									<option>{{value.2}}</option>
+									{% endfor %}
+									</select> </td>
 									<td class="search_det2_labels"></td>
 								</tr>
 								<tr>
 									<td class="search_det2_boxs">
 									<select class="search_det_box_txt" dir="rtl" name="Select3">
-									<option></option>
+									{% for value in poem %}
+									<option>{{value.1}}</option>
+									{% endfor %}
 									</select></td>
 									<td class="search_det2_labels"></td>
 								</tr>
 								<tr>
 									<td class="search_det2_boxs">
 									<select class="search_det_box_txt" dir="rtl" name="Select4">
-									<option></option>
+									{% for value in purpose %}
+									<option>{{value.1}}</option>
+									{% endfor %}
+									</select></td>
+									<td class="search_det2_labels"></td>
+								</tr>
+								<tr>
+									<td class="search_det2_boxs">
+									<select class="search_det_box_txt" dir="rtl" name="Select5">
+									{% for value in sea %}
+									<option>{{value.1}}</option>
+									{% endfor %}
+									</select></td>
+									<td class="search_det2_labels"></td>
+								</tr>
+								<tr>
+									<td class="search_det2_boxs">
+									<select class="search_det_box_txt" dir="rtl" name="Select6">
+									{% for value in publisher %}
+									<option>{{value.1}}</option>
+									{% endfor %}
 									</select></td>
 									<td class="search_det2_labels"></td>
 								</tr>
