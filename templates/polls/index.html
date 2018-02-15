@@ -1,9 +1,106 @@
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+{% extends "base.htm" %}
+{% load staticfiles %}
+{% block content %}
+
+
+
+
+	<div class="content_div">
+		<table class="int_cont_tbl">
+			<tr>
+				<td>
+				<table class="int_cont_tbl_hdr">
+					<tr>
+						<td class="int_cont_hdr_td">
+						<table class="int_cont_hdr_td">
+							<tr>
+								<td class="int_hdr_bok">
+								<a href="javascript:window.print()" target="_blank" title="Print">
+								<img alt="" height="24" src="{% static 'images/icons/prnt_clk.png' %}" width="25" /></a>
+								<a href="#" target="_blank" title="Bookmark">
+								<img alt="" height="24" src="{% static 'images/icons/fav_clk.png' %}" width="25" /></a></td>
+								<td class="int_hdr_tit">
+								<table class="int_hdr_tit2"><br/>
+									<tr>
+										<br/><br/><br/><br/>
+										<td class="int_hdr_title">استطلاعات الرأي</td>
+									</tr>
+									<tr>
+										<td class="int_hdr_stitle"> استطلاعات رأي الزوار أدة تقنية علمية لتطوير آداء الموقع وتطوير أعماله</td>
+									</tr>
+								</table>
+								</td>
+								<td class="int_hdr_logo"><a href="/">
+								<img alt="" src="{% static 'images/slogo.png' %}" /></a></td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+			<tr>
+				<td class="int_content_frm">
+				<table class="int_content_frm">
+					<tr>
+						<td class="int_cont_spc_brdr">
+   							<div class="content_spon2">
+								<center style="height: auto;">
+								<table class="content_spon_tbl2">
+									<tr>
+										<td class="spon_tbl_spc2"></td>
+									</tr>
+									<tr>
+										<td class="spon_tbl_sml2">
+										<img alt="" height="36" src="{% static 'images/spon/sml.png' %}" width="43" /></td>
+									</tr>
+									<tr>
+										<td class="spon_tbl_med2">
+										<img alt="" height="31" src="{% static 'images/spon/med.png' %}" width="60" /></td>
+									</tr>
+									<tr>
+										<td class="spon_tbl_lar2">
+										<img alt="" height="62" src="{% static 'images/spon/large.png' %}" width="36" /></td>
+									</tr>
+									<tr>
+										<td class="spon_tbl_med2">
+										<img alt="" height="41" src="{% static 'images/spon/med2.png' %}" width="44" /></td>
+									</tr>
+									<tr>
+										<td class="spon_tbl_sml2">
+										<img alt="" height="40" src="{% static 'images/spon/sml2.png' %}" width="35" /></td>
+									</tr>
+								</table>
+								</center></div>
+						</td>
+						<td class="int_cont_pg_brdr">
+						<table class="int_cont_pg_brdr" style="background-image: url('images/brdr/int_hdr.png');">
+							<tr>
+								<td class="search_box" style="width: 100%">
+
+								</td>
+							</tr>
+							<tr>
+								<td class="int_cont_page">
+                                    {% if latest_question_list %}
+                                        <ul>
+                                        {% for question in latest_question_list %}
+                                            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+                                        {% endfor %}
+                                        </ul>
+                                    {% else %}
+                                        <p>No polls are available.</p>
+                                    {% endif %}
+								</td>
+							</tr>
+						</table>
+						</td>
+					</tr>
+				</table>
+				</td>
+			</tr>
+		</table>
+	</div>
+
+
+{% endblock %}

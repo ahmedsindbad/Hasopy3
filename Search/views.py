@@ -60,28 +60,42 @@ def combo_fil(colum):
 def tosearchpage(request):
     form = VerseForm(request.POST or None)
     searchWord = request.POST.get('text', '').replace("'", '')
-    request.session['Sword'] = searchWord
-    try:
-        conn = sqlite3.connect(
-            os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))
-        c = conn.cursor()
-        c.execute(
-            "SELECT * FROM Search_poem "
-            "LEFT OUTER JOIN Search_verse ON (Search_poem.id = Search_verse.poem_id) "
-            "LEFT OUTER JOIN Search_poet ON (Search_poem.poet_id = Search_poet.id) "
-            "WHERE (Search_verse.text like '%" + searchWord + "%') ", )
-        result = list(c)
-        conn.commit()
-        conn.close()
-    except ValueError:
-        print("Oops!  That was no valid Data.  Try again...")
-    context = {
-        'searchWord': searchWord,
-        'result': result,
-        'form': form,
+    if searchWord != "":
+        if searchWord != " ":
+            request.session['Sword'] = searchWord
+            try:
+                conn = sqlite3.connect(
+                    os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))
+                c = conn.cursor()
+                c.execute(
+                    "SELECT * FROM Search_poem "
+                    "LEFT OUTER JOIN Search_verse ON (Search_poem.id = Search_verse.poem_id) "
+                    "LEFT OUTER JOIN Search_poet ON (Search_poem.poet_id = Search_poet.id) "
+                    "WHERE (Search_verse.text like '%" + searchWord + "%') ", )
+                result = list(c)
+                conn.commit()
+                conn.close()
+            except ValueError:
+                print("Oops!  That was no valid Data.  Try again...")
+            context = {
+                'searchWord': searchWord,
+                'result': result,
+                'form': form,
+            }
+            return render(request, 'Search.htm', context)
+        else:
+            context = {
+                'form': form,
+            }
+            return render(request, 'index.htm', context)
+    else:
+        context = {
+            'form': form,
+        }
+        return render(request, 'index.htm', context)
 
-    }
-    return render(request, 'Search.htm', context)
+
+
 
 
 def poetryshow(request, poet_id):
@@ -146,3 +160,16 @@ def getalldata(p_id='1'):
 #         "result": result,
 #     }
 #     return render(request, 'index.htm', context)
+
+
+# var = "SELECT * FROM Search_poem " \
+#       "LEFT OUTER JOIN Search_verse ON (Search_poem.id = Search_verse.poem_id) " \
+#       "LEFT OUTER JOIN Search_poet ON (Search_poem.poet_id = Search_poet.id) " \
+#       "WHERE " \
+#       "(Search_poem.publisher_id = '"+ publisher_id +"') AND " \
+#       "(Search_poem.sea_id = '"+ sea_id +"') AND " \
+#       "(Search_poem.purpose_id = '"+ purpose_id +"') AND " \
+#       "(Search_poem.id = '"+ id +"') AND " \
+#       "(Search_poem.poet_id = '"+ poet_id +"') AND " \
+#       "(Search_poem.myDate_id = '"+ myDate_id +"') AND    " \
+#       "(Search_verse.text like '%"+ Searchword +"%')"
