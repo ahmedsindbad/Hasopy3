@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 import os
 from .forms import VerseForm
 import sqlite3
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 class HomeView(TemplateView):
@@ -31,71 +31,106 @@ class TestPageView(TemplateView):
 
 def varse(request):
     form = VerseForm(request.POST or None)
-    poet=combo_fil('Search_poet')
-    mydate=combo_fil('Search_mydate')
-    purpose=combo_fil('Search_purpose')
-    publisher=combo_fil('Search_publisher')
-    sea=combo_fil('Search_sea')
-    poem=combo_fil('Search_poem')
+    poet = combo_fil('Search_poet')
+    mydate = combo_fil('Search_mydate')
+    purpose = combo_fil('Search_purpose')
+    publisher = combo_fil('Search_publisher')
+    sea = combo_fil('Search_sea')
+    poem = combo_fil('Search_poem')
+    test = 'opps'
     context = {
-        "form": form,'poet':poet,'mydate':mydate,'poem':poem,'purpose':purpose,'sea':sea, 'publisher': publisher
+        "form": form, 'poet': poet, 'mydate': mydate, 'poem': poem, 'purpose': purpose, 'sea': sea, 'publisher': publisher ,
     }
     return render(request, 'index.htm', context)
 
-def combo_fil(colum):
+
+def combo_fil(table):
     try:
         conn = sqlite3.connect(
             os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))
         c = conn.cursor()
-        c.execute("SELECT * FROM "+colum ,)
+        c.execute("SELECT * FROM "+table,)
         result = list(c)
         #poet.execute("SELECT * FROM Search_mydate ",)
         #result = list(poet)
         conn.commit()
         conn.close()
+        return result
     except ValueError:
         print("Oops!  That was no valid Data.  Try again...")
-    return result
+
+result = [1]
 
 def tosearchpage(request):
+    global result
     form = VerseForm(request.POST or None)
-    searchWord = request.POST.get('text', '').replace("'", '')
-    if searchWord != "":
-        if searchWord != " ":
-            request.session['Sword'] = searchWord
-            try:
-                conn = sqlite3.connect(
-                    os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))
-                c = conn.cursor()
-                c.execute(
-                    "SELECT * FROM Search_poem "
-                    "LEFT OUTER JOIN Search_verse ON (Search_poem.id = Search_verse.poem_id) "
-                    "LEFT OUTER JOIN Search_poet ON (Search_poem.poet_id = Search_poet.id) "
-                    "WHERE (Search_verse.text like '%" + searchWord + "%') ", )
-                result = list(c)
-                conn.commit()
-                conn.close()
-            except ValueError:
-                print("Oops!  That was no valid Data.  Try again...")
-            context = {
-                'searchWord': searchWord,
-                'result': result,
-                'form': form,
-            }
-            return render(request, 'Search.htm', context)
+    if form.is_valid():
+        searchWord = request.POST.get('text', '').replace("'", '')
+        request.session['Sword'] = searchWord
+    searchWord1 = request.session.get('Sword')
+    try:
+        if request.POST.get('search_method', '') != 'advanced':
+            conn = sqlite3.connect(
+                os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))
+            c = conn.cursor()
+            c.execute(
+                "SELECT * FROM Search_poem "
+                "LEFT OUTER JOIN Search_verse ON (Search_poem.id = Search_verse.poem_id) "
+                "LEFT OUTER JOIN Search_poet ON (Search_poem.poet_id = Search_poet.id) "
+                "WHERE (Search_verse.text like '%" + searchWord1 + "%') ", )
+            result_list = list(c)
+            conn.commit()
+            conn.close()
+
+            page = request.GET.get('page', 1)
+
+            paginator = Paginator(result_list, 5)
+            result = paginator.page(page)
         else:
-            context = {
-                'form': form,
-            }
-            return render(request, 'index.htm', context)
-    else:
-        context = {
-            'form': form,
-        }
-        return render(request, 'index.htm', context)
+            result = tosearch_advance(request, searchWord1)
+    except ValueError:
+        print("Oops!  That was no valid Data.  Try again...")
+    context = {
+        'searchWord': searchWord1,
+        'result': result,
+        'form': form,
+    }
+    return render(request, 'Search.htm', context)
 
 
 
+def tosearch_advance(request, Searchword):
+    global result
+    if request.method == "POST":
+        myDate_id = request.POST.get('xmydate', '')
+        poet_id = request.POST.get('xpoet', '')
+        poem_id = request.POST.get('xpoem','')
+        purpose_id = request.POST.get('xpurpose', '')
+        sea_id = request.POST.get('xsea', '')
+        publisher_id = request.POST.get('xpublisher', '')
+        try:
+            conn = sqlite3.connect(
+                os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/" + "db.sqlite3"))
+            c = conn.cursor()
+            c.execute(
+                "SELECT * FROM Search_poem " \
+                "LEFT OUTER JOIN Search_verse ON (Search_poem.id = Search_verse.poem_id) " \
+                "LEFT OUTER JOIN Search_poet ON (Search_poem.poet_id = Search_poet.id) " \
+                "WHERE " \
+                "(Search_poem.publisher_id = '" + publisher_id + "') AND " \
+                "(Search_poem.sea_id = '" + sea_id + "') AND " \
+                "(Search_poem.purpose_id = '" + purpose_id + "') AND " \
+                "(Search_poem.id = '" + poem_id + "') AND " \
+                "(Search_poem.poet_id = '" + poet_id + "') AND " \
+                "(Search_poem.myDate_id = '" + myDate_id + "') AND    " \
+                "(Search_verse.text like '%" + Searchword + "%')", )
+            result = list(c)
+            conn.commit()
+            conn.close()
+
+        except ValueError:
+            print("Oops!  That was no valid Data.  Try again...")
+    return result
 
 
 def poetryshow(request, poet_id):

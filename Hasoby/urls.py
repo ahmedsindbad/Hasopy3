@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^about/$', views.AboutPageView.as_view(), name='about'),
     url(r'^search/$', views.tosearchpage, name='search'),
     url(r'^search/poetry/(?P<poet_id>\d+)/$', views.poetryshow, name='poetry'),
-    # url(r'^polls/$', views1.index, name='index'),
+    url(r'^polls/poem/(?P<poem_id1>\d+)/$', views1.PollsById.as_view(), name='pollsbyid'),
     path('polls/', include('polls.urls')),
     path('admin/', admin.site.urls),
 ]

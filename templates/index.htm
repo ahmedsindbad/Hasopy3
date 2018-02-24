@@ -17,16 +17,18 @@
 					<tr>
 						<td class="search_box">
 						<table class="search_box">
-							<form id = "form-search" method="post" action="{% url 'search' %}"  class="search_box_txt" dir="rtl" tabindex="0">{% csrf_token %}
+							<form id = "form-search" method="POST" action="{% url 'search' %}"  class="search_box_txt" dir="rtl" tabindex="0">{% csrf_token %}
 							<tr>
 								<td class="search_box_l">
-								<a href="#" title="إبدأ البحث" onclick="document.forms['form-search'].submit();">
+								<a href="#" title="إبدأ البحث" onclick="if(searchvalidate()){document.forms['form-search'].submit()};">
 								<img alt="" height="47" src="{% static 'images/icons/srch_clk.png' %}" style="margin-left: 11px;" width="30" /></a></td>
 								<td class="search_box_m">
 									<!--<input class="search_box_txt" dir="rtl" name="SearchBox" tabindex="0" type="text" value="نعمة من كريم" />-->
+									<label id="SearchErrorText" style="font-size:14px"></label>
 									<br/>
 										{{form.as_p}}
 										<!--<input type="submit" value="إبدأ البحث" dir="rtl" formaction="{% url 'search' %}">-->
+										<input type="hidden"  id="my_search" name="search_method">
 								</td>
 								<td class="search_box_r">
 								<p class="search_box_p">ابحث عن</p>
@@ -42,7 +44,7 @@
 							<table class="search_det1">
 								<tr>
 									<td class="search_det1_clk">
-									<a href="" onclick="document.getElementById('div_name2').style.display='';document.getElementById('div_name1').style.display='none';return false;">
+									<a href="" onclick="document.getElementById('div_name2').style.display='';document.getElementById('div_name1').style.display='none';document.getElementById('my_search').value='advanced';return false;">
 									<img alt="" height="26" src="{% static 'images/icons/srch_det1_clk.png' %}" style="margin-top: 6px" width="86" /></a></td>
 									<td class="search_det1_disc">للحصول على نتائج أكثر دقة يفضل استخدام البحث المتقدم.</td>
 								</tr>
@@ -59,66 +61,66 @@
 								</tr>
 								<tr>
 									<td class="search_det2_boxs">
-									<select class="search_det_box_txt" dir="rtl" name="Select1">
+									<select class="search_det_box_txt" dir="rtl" name="Select1" onchange="getselect(this,'xmydate');">
 									{% for value in mydate %}
-									<option>{{value.1}}</option>
+									<option id="x1" value="{{value.0}}">{{value.1}}</option>
 									{% endfor %}
 									</select> </td>
 									<td class="search_det2_labels"></td>
 								</tr>
 								<tr>
 									<td class="search_det2_boxs">
-									<select class="search_det_box_txt" dir="rtl" name="Select2">
+									<select class="search_det_box_txt" dir="rtl" name="Select2" onchange="getselect(this,'xpoet');">
 									{% for value in poet %}
-									<option>{{value.2}}</option>
+									<option id="x2" value="{{value.0}}">{{value.2}}</option>
 									{% endfor %}
 									</select> </td>
 									<td class="search_det2_labels"></td>
 								</tr>
 								<tr>
 									<td class="search_det2_boxs">
-									<select class="search_det_box_txt" dir="rtl" name="Select3">
+									<select class="search_det_box_txt" dir="rtl" name="Select3" onchange="getselect(this,'xpoem');">
 									{% for value in poem %}
-									<option>{{value.1}}</option>
+									<option id="x3" value="{{value.0}}">{{value.1}}</option>
 									{% endfor %}
 									</select></td>
 									<td class="search_det2_labels"></td>
 								</tr>
 								<tr>
 									<td class="search_det2_boxs">
-									<select class="search_det_box_txt" dir="rtl" name="Select4">
+									<select class="search_det_box_txt" dir="rtl" name="Select4" onchange="getselect(this,'xpurpose');">
 									{% for value in purpose %}
-									<option>{{value.1}}</option>
+									<option id="x4" value="{{value.0}}">{{value.1}}</option>
 									{% endfor %}
 									</select></td>
 									<td class="search_det2_labels"></td>
 								</tr>
 								<tr>
 									<td class="search_det2_boxs">
-									<select class="search_det_box_txt" dir="rtl" name="Select5">
+									<select class="search_det_box_txt" dir="rtl" name="Select5" onchange="getselect(this,'xsea');">
 									{% for value in sea %}
-									<option>{{value.1}}</option>
+									<option id="x5" value="{{value.0}}">{{value.1}}</option>
 									{% endfor %}
 									</select></td>
 									<td class="search_det2_labels"></td>
 								</tr>
 								<tr>
 									<td class="search_det2_boxs">
-									<select class="search_det_box_txt" dir="rtl" name="Select6">
+									<select  class="search_det_box_txt" dir="rtl" name="Select6" onchange="getselect(this,'xpublisher');">
 									{% for value in publisher %}
-									<option>{{value.1}}</option>
+									<option id="x6" value="{{value.0}}">{{value.1}}</option>
 									{% endfor %}
 									</select></td>
 									<td class="search_det2_labels"></td>
 								</tr>
 							</table>
-							<a href="" onclick="document.getElementById('div_name2').style.display='none';document.getElementById('div_name1').style.display='';return false;" title="إغلاق البحث المتقدم">
+							<a href="" onclick="document.getElementById('div_name2').style.display='none';document.getElementById('div_name1').style.display='';document.getElementById('my_search').value='';return false;" title="إغلاق البحث المتقدم">
 							<img alt="" src="{% static 'images/spc.png' %}" style="height: 25px; width: 125px; float: right" /></a></center>
 						</div>
 						</td>
 					</tr>
 				</table>
-			<!--</form>-->
+			</form>
 		</div>
 		<div class="spon_tit">
 			الرعاة</div>
@@ -140,4 +142,59 @@
 			</table>
 			</center></div>
 	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<Script>
+function searchvalidate()
+{
+	var words = document.getElementById("id_text").value;
+
+	if(words.length == 0)
+	{
+		document.getElementById("SearchErrorText").innerHTML = "يجب ادخال الكلمة المراد البحث عنها أولا";
+		document.getElementById("SearchErrorText").style.color = "red";
+		return false;
+	}
+	if(words.match("^[\u0621-\u064A\u0660-\u0669 ]+$"))
+	{
+		document.getElementById("SearchErrorText").innerHTML = "لغة عربية صحيحة";
+		document.getElementById("SearchErrorText").style.color = "green";
+		return true;
+	}
+	else
+	{
+		document.getElementById("SearchErrorText").innerHTML = "يجب ادخال احرف اللغة العربية";
+		document.getElementById("SearchErrorText").style.color = "red";
+		return false;
+	}
+
+}
+$('html').bind('keypress', function(e)
+{
+   if(e.keyCode == 13)
+   {
+   		if(searchvalidate())
+   		{
+   			return true;
+   		}
+   		else
+   		{
+      		return false;
+      	}
+   }
+});
+$(document).ready(function(){
+	document.getElementById("xmydate").value = $("#x1").val();
+	document.getElementById("xpoet").value = $("#x2").val();
+	document.getElementById("xpoem").value = $("#x3").val();
+	document.getElementById("xpurpose").value = $("#x4").val();
+	document.getElementById("xsea").value = $("#x5").val();
+	document.getElementById("xpublisher").value = $("#x6").val();
+});
+function getselect(anyid,inputName)
+{
+	document.getElementById(inputName).value = $(anyid).val();
+}
+
+<!--getpoetid();-->
+</Script>
 {% endblock %}

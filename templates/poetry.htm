@@ -3,6 +3,7 @@
 {% extends "base.htm" %}
 {% load staticfiles %}
 {% block content %}
+
 								<table class="int_hdr_tit2">
 									<tr><br/><br/><br/><br/>
 										<td class="int_hdr_title">قصيدة ({{fresult.0.1}})</td>
@@ -126,6 +127,7 @@
 										<a href="javascript:history.back()" title="الصفحة السابقة">
 										<img alt="" height="29" src="{% static 'images/icons/back_clk.png' %}" width="31" /></a></td>
 									</tr>
+
 								</table>
 								</td>
 							</tr>
@@ -137,4 +139,19 @@
 			</tr>
 		</table>
 	</div>
+									<tr>
+										<div id="xrootx">
+
+										</div>
+									</tr>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+	$(document).ready(function(){
+		{% block jquery %}
+		document.getElementById("xrootx").innerHTML='<object type="text/html" data="{% url 'pollsbyid' fresult.0.0 %}" ></object>';
+		{% endblock %}
+	});
+</script>
 {% endblock %}
+

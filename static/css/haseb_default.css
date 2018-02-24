@@ -691,3 +691,6 @@ div {
 	font-weight: normal;
 	color: #000000;
 }
+.errorlist {
+        color: red;
+    }

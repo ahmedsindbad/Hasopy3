@@ -67,13 +67,14 @@
 							<tr>
 								<td class="search_box" style="width: 100%">
 								<table class="search_box" style="width: 100%">
-							<form id = "form-search" method="post" action="{% url 'search' %}"  class="search_box_txt" dir="rtl" tabindex="0">{% csrf_token %}
+							<form id = "form-search" method="POST" action="{% url 'search' %}"  class="search_box_txt" dir="rtl" tabindex="0">{% csrf_token %}
 							<tr>
 								<td class="search_box_l">
-								<a href="#" title="إبدأ البحث" onclick="document.forms['form-search'].submit();">
+								<a href="#" title="إبدأ البحث" onclick="if(searchvalidate()){document.forms['form-search'].submit()};">
 								<img alt="" height="47" src="{% static 'images/icons/srch_clk.png' %}" style="margin-left: 11px;" width="30" /></a></td>
 								<td class="search_box_m">
 									<!--<input class="search_box_txt" dir="rtl" name="SearchBox" tabindex="0" type="text" value="نعمة من كريم" />-->
+									<label id="SearchErrorText" style="font-size:14px"></label>
 									<br/>
 										{{form.as_p}}
 										<!--<input type="submit" value="إبدأ البحث" dir="rtl" formaction="{% url 'search' %}">-->
@@ -140,9 +141,20 @@
 								<table class="int_clks_bar">
 									<tr>
 										<td class="int_clks_bar" style="padding-bottom: 10px; padding-top: 10px;">
-										<img alt="" height="29" src="{% static 'images/icons/prev_clk_dim.png' %}" width="31" />
-										<a href="/search/poetry/{{value.0}}" title="الصفحة التالية">
-										<img alt="" height="29" src="{% static 'images/icons/nxt_clk.png' %}" width="30" /></a></td>
+										{% if result.has_other_pages %}
+										{% if result.has_previous %}
+										<a href="/search/?page={{ result.previous_page_number }}" title=" الصفحة السابقة">
+										<img alt="" height="29" src="{% static 'images/icons/prev_clk_dim.png' %}" width="31" /></a>
+
+										{% endif %}
+
+										{% if result.has_next %}
+										<a href="/search/?page={{ result.next_page_number }}" title="الصفحة التالية"  >
+										<img alt="" height="29" src="{% static 'images/icons/nxt_clk.png' %}" width="30" /></a>
+
+										{% endif %}
+										{% endif %}
+										</td>
 									</tr>
 								</table>
 								</td>
@@ -156,4 +168,46 @@
 		</table>
 	</div>
 <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<Script>
+	function searchvalidate()
+	{
+		var words = document.getElementById("id_text").value;
+
+		if(words.length == 0)
+		{
+			document.getElementById("SearchErrorText").innerHTML = "يجب ادخال الكلمة المراد البحث عنها أولا";
+			document.getElementById("SearchErrorText").style.color = "red";
+			return false;
+		}
+		if(words.match("^[\u0621-\u064A\u0660-\u0669 ]+$"))
+		{
+			document.getElementById("SearchErrorText").innerHTML = "لغة عربية صحيحة";
+			document.getElementById("SearchErrorText").style.color = "green";
+			return true;
+		}
+		else
+		{
+			document.getElementById("SearchErrorText").innerHTML = "يجب ادخال احرف اللغة العربية";
+			document.getElementById("SearchErrorText").style.color = "red";
+			return false;
+		}
+
+	}
+$('html').bind('keypress', function(e)
+{
+   if(e.keyCode == 13)
+   {
+   		if(searchvalidate())
+   		{
+   			return true;
+   		}
+   		else
+   		{
+      		return false;
+      	}
+   }
+});
+
+</Script>
 {% endblock %}

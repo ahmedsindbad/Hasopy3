@@ -1,0 +1,10 @@
+
+{% if latest_question_list %}
+	<ul>
+{% for question in latest_question_list %}
+	<li style="text-align:center;"><h3><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></h3></li>
+{% endfor %}
+	</ul>
+{% else %}
+	<p>لا يوجد استطلاع للرأى حول هذه القصيدة.</p>
+{% endif %}
